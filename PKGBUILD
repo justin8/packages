@@ -2,7 +2,7 @@
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ install=crashplan.install
 source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan_${pkgver}_Linux.tgz
         crashplan)
 md5sums=('692ced7630bdcb439379cde708a1e7c2'
-         '809855c6b043dfa4bada58e522fe61e5')
+         'aa0c6daeb47028ef3ca26def11720f5e')
 
 build() {
   cd $srcdir/CrashPlan-install
@@ -61,7 +61,7 @@ build() {
 package() {
   mkdir -p $pkgdir/opt/$pkgname
   cd $pkgdir/opt/$pkgname
-  
+
   cat $srcdir/CrashPlan-install/CrashPlan_$pkgver.cpi | gzip -d -c - | cpio -i --no-preserve-owner
   chmod 777 $pkgdir/opt/$pkgname/log
   sed -i "s|<manifestPath>manifest</manifestPath>|<manifestPath>/opt/$pkgname/manifest</manifestPath>|g" $pkgdir/opt/$pkgname/conf/default.service.xml
@@ -69,7 +69,7 @@ package() {
   mkdir -p $pkgdir/usr/bin
   ln -s "/opt/$pkgname/bin/CrashPlanDesktop" $pkgdir/usr/bin/CrashPlanDesktop
 
-  install -D -m 644 $srcdir/CrashPlan-install/install.vars $pkgdir/opt/$pkgname/install.vars  
+  install -D -m 644 $srcdir/CrashPlan-install/install.vars $pkgdir/opt/$pkgname/install.vars
   install -D -m 644 $srcdir/CrashPlan-install/EULA.txt $pkgdir/opt/$pkgname/EULA.txt
   install -D -m 644 $srcdir/CrashPlan-install/EULA.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -D -m 755 $srcdir/CrashPlan-install/scripts/CrashPlanDesktop $pkgdir/opt/$pkgname/bin/CrashPlanDesktop
