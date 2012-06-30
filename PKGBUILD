@@ -1,4 +1,5 @@
-# Maintainer: Bill Durr <billyburly [at] gmail [dot] com>
+# Maintainer: Egon Geerardyn <egon [dot] geerardyn [at] gmail [dot] com>
+# Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
 pkgrel=1
