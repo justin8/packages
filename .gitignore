@@ -1,2 +1,6 @@
 src/
 pkg/
+*~
+*.xz
+CrashPlan-install
+CrashPlan_*_Linux.tgz
