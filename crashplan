@@ -43,7 +43,7 @@ case "$1" in
 	stat_busy "Starting CrashPlan Engine"
 	PWD=`pwd`
 	cd $WD
-	[[ -z "$PID" ]] && nice -n 19 $CRASHPLAN start
+	[[ -z "$PID" ]] && nice -n 19 $CRASHPLAN start > /dev/null
 	if [ $? -gt 0 ]; then
 	    stat_fail
 	else
