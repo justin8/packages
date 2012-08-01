@@ -52,9 +52,11 @@ package() {
   mkdir -p $pkgdir/usr/bin
   ln -s "/opt/$pkgname/bin/CrashPlanDesktop" $pkgdir/usr/bin/CrashPlanDesktop
 
- if [ "$CARCH" = "i686" ]; then
+  # Fix for 32 bit: 64 bit libs cannot be stripped from symbols
+  # so we just remove those libs
+  if [ "$CARCH" = "i686" ]; then
     rm $pkgdir/opt/$pkgname/*64.so
- fi
+  fi
 
   install -D -m 644 $srcdir/CrashPlan-install/install.vars $pkgdir/opt/$pkgname/install.vars
   install -D -m 644 $srcdir/CrashPlan-install/EULA.txt $pkgdir/opt/$pkgname/EULA.txt
