@@ -2,7 +2,7 @@
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
-pkgrel=6
+pkgrel=7
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -16,7 +16,7 @@ source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan
         crashplan.service)
 md5sums=('692ced7630bdcb439379cde708a1e7c2'
          '469763784eb17a8410a227706055e00c'
-         '52c1fff821968283b2e0dc3dbf41d50d')
+         '85772ef7d28d9259c9867e42bac97928')
 
 build() {
   cd $srcdir/CrashPlan-install
@@ -30,6 +30,7 @@ build() {
 
   echo "" > install.vars
   echo "JAVACOMMON=$JAVA_HOME/bin/java" >> install.vars
+  echo "#APP_BASENAME=CrashPlan" >> install.vars
   echo "TARGETDIR=/opt/$pkgname" >> install.vars
   echo "BINSDIR=" >> install.vars
   echo "MANIFESTDIR=/opt/$pkgname/manifest" >> install.vars
