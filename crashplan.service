@@ -1,0 +1,11 @@
+[Unit]
+Description=CrashPlan Backup Engine
+
+[Service]
+EnvironmentFile=/opt/crashplan/bin/run.conf
+WorkingDirectory=/opt/crashplan
+Nice=19
+ExecStart=/usr/bin/java $SRV_JAVA_OPTS -classpath "/opt/crashplan/lib/com.backup42.desktop.jar:/opt/crashplan/lang" com.backup42.service.CPService
+
+[Install]
+WantedBy=multi-user.target

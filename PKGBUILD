@@ -2,7 +2,7 @@
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
-pkgrel=5
+pkgrel=6
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -12,9 +12,11 @@ makedepends=('grep' 'cpio' 'gzip')
 backup=()
 install=crashplan.install
 source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan_${pkgver}_Linux.tgz
-        crashplan)
+        crashplan
+        crashplan.service)
 md5sums=('692ced7630bdcb439379cde708a1e7c2'
-         '469763784eb17a8410a227706055e00c')
+         '469763784eb17a8410a227706055e00c'
+         '52c1fff821968283b2e0dc3dbf41d50d')
 
 build() {
   cd $srcdir/CrashPlan-install
@@ -73,5 +75,8 @@ package() {
   install -D -m 755 $srcdir/CrashPlan-install/scripts/CrashPlanEngine $pkgdir/opt/$pkgname/bin/CrashPlanEngine
   install -D -m 755 $srcdir/CrashPlan-install/scripts/CrashPlan.desktop $pkgdir/usr/share/applications/crashplan.desktop
 
+  # rc.d daemon
   install -D -m 755 $srcdir/crashplan $pkgdir/etc/rc.d/crashplan
+  # systemd unit
+  install -D -m 755 $srcdir/crashplan.service $pkgdir/usr/lib/systemd/system/crashplan.service
 }
