@@ -2,7 +2,7 @@
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
-pkgrel=7
+pkgrel=8
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -29,7 +29,7 @@ build() {
   echo ""
 
   echo "" > install.vars
-  echo "JAVACOMMON=$JAVA_HOME/bin/java" >> install.vars
+  echo "JAVACOMMON=/usr/bin/java" >> install.vars
   echo "#APP_BASENAME=CrashPlan" >> install.vars
   echo "TARGETDIR=/opt/$pkgname" >> install.vars
   echo "BINSDIR=" >> install.vars
