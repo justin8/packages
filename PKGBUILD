@@ -14,7 +14,7 @@ install=crashplan.install
 source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan_${pkgver}_Linux.tgz
         crashplan
         crashplan.service)
-md5sums=('692ced7630bdcb439379cde708a1e7c2'
+md5sums=('4f4442aa4a1467c6ad98d12ae87a1ebc'
          '469763784eb17a8410a227706055e00c'
          '85772ef7d28d9259c9867e42bac97928')
 
