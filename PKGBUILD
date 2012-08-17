@@ -2,7 +2,7 @@
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
 pkgver=3.2.1
-pkgrel=8
+pkgrel=9
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -79,5 +79,5 @@ package() {
   # rc.d daemon
   install -D -m 755 $srcdir/crashplan $pkgdir/etc/rc.d/crashplan
   # systemd unit
-  install -D -m 755 $srcdir/crashplan.service $pkgdir/usr/lib/systemd/system/crashplan.service
+  install -D -m 644 $srcdir/crashplan.service $pkgdir/usr/lib/systemd/system/crashplan.service
 }
