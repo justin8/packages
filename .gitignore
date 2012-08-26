@@ -6,3 +6,4 @@ CrashPlan-install
 CrashPlan_*_Linux.tgz
 crashplan-*.tar.gz
 *.sublime-workspace
+.directory

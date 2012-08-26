@@ -2,7 +2,10 @@
 	"folders":
 	[
 		{
-			"path": "/home/egon/Dropbox/docs/arch/crashplan"
+			"path": ".",
+                       "file_exclude_patterns":[
+                     "*.gz","*.xz","*.sublime-workspace","*.tgz"
+            ]
 		}
 	]
 }
