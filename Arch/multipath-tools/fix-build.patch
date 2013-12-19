@@ -1,0 +1,104 @@
+diff --git a/Makefile.inc b/Makefile.inc
+index f445160..7727add 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -48,8 +48,8 @@ ifndef RPM_OPT_FLAGS
+ 	RPM_OPT_FLAGS = -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4
+ endif
+ 
+-OPTFLAGS     = $(RPM_OPT_FLAGS) -Wunused -Wstrict-prototypes
+-CFLAGS	     = $(OPTFLAGS) -fPIC -DLIB_STRING=\"${LIB}\"
++OPTFLAGS     = -Wall -Wunused -Wstrict-prototypes
++CFLAGS	    += $(OPTFLAGS) -fPIC -DLIB_STRING=\"${LIB}\"
+ SHARED_FLAGS = -shared
+ 
+ %.o:	%.c
+diff --git a/kpartx/Makefile b/kpartx/Makefile
+index 4ba38ba..525c921 100644
+--- a/kpartx/Makefile
++++ b/kpartx/Makefile
+@@ -12,7 +12,7 @@ ifneq ($(strip $(LIBDM_API_COOKIE)),0)
+ 	CFLAGS += -DLIBDM_API_COOKIE
+ endif
+ 
+-LDFLAGS = -ldevmapper
++LDFLAGS += -ldevmapper
+ OBJS = bsd.o dos.o kpartx.o solaris.o unixware.o dasd.o sun.o \
+        gpt.o mac.o ps3.o crc32.o lopart.o xstrncpy.o devmapper.o
+ EXEC = kpartx
+@@ -20,7 +20,7 @@ EXEC = kpartx
+ all: $(EXEC)
+ 
+ $(EXEC): $(OBJS)
+-	$(CC) $(OBJS) -o $(EXEC) $(LDFLAGS)
++	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC) $(LDFLAGS)
+ 	$(GZIP) $(EXEC).8 > $(EXEC).8.gz
+ 
+ install: $(EXEC) $(EXEC).8
+@@ -28,14 +28,15 @@ install: $(EXEC) $(EXEC).8
+ 	$(INSTALL_PROGRAM) -m 755 $(EXEC) $(DESTDIR)$(bindir)
+ 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(libudevdir)
+ 	$(INSTALL_PROGRAM) -m 755 kpartx_id $(DESTDIR)$(libudevdir)
+-	$(INSTALL_PROGRAM) -d $(DESTDIR)/etc/udev/rules.d
+-	$(INSTALL_PROGRAM) -m 644 kpartx.rules $(DESTDIR)/etc/udev/rules.d/
++	$(INSTALL_PROGRAM) -d $(DESTDIR)/usr/lib/udev/rules.d
++	$(INSTALL_PROGRAM) -m 644 kpartx.rules $(DESTDIR)/usr/lib/udev/rules.d/66-kpartx.rules
+ 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(mandir)
+ 	$(INSTALL_PROGRAM) -m 644 $(EXEC).8.gz $(DESTDIR)$(mandir)
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(bindir)/$(EXEC)
+ 	rm -f $(DESTDIR)$(mandir)/$(EXEC).8.gz
++	rm -f $(DESTDIR)/usr/lib/udev/rules.d/66-kpartx.rules
+ 	rm -f $(DESTDIR)$(libudevdir)/kpartx_id
+ 
+ clean:
+diff --git a/kpartx/kpartx.rules b/kpartx/kpartx.rules
+index 5c0d0ff..ed01278 100644
+--- a/kpartx/kpartx.rules
++++ b/kpartx/kpartx.rules
+@@ -14,8 +14,8 @@ ENV{DM_UUID}=="?*", IMPORT{program}=="kpartx_id %M %m $env{DM_UUID}"
+ 
+ ENV{DM_ACTION}=="PATH_FAILED", ENV{DM_NR_VALID_PATHS}=="0", \
+ 	GOTO="blkid_end"
+-ENV{DM_UUID}=="mpath-*", IMPORT{program}="/sbin/blkid -o udev -p $tempnode"
+-ENV{DM_PART}=="?*", IMPORT{program}="/sbin/blkid -o udev -p $tempnode"
++ENV{DM_UUID}=="mpath-*", IMPORT{program}="/usr/bin/blkid -o udev -p $tempnode"
++ENV{DM_PART}=="?*", IMPORT{program}="/usr/bin/blkid -o udev -p $tempnode"
+ LABEL="blkid_end"
+ 
+ OPTIONS="link_priority=50"
+@@ -49,7 +49,7 @@ ENV{ID_FS_USAGE}=="filesystem|other", ENV{ID_FS_LABEL_ENC}=="?*", \
+ ENV{DM_ACTION}=="PATH_FAILED", ENV{DM_NR_VALID_PATHS}=="0", \
+ 	GOTO="kpartx_end"
+ ENV{DM_STATE}!="SUSPENDED", ENV{DM_UUID}=="mpath-*", \
+-        RUN+="/sbin/kpartx -u -p -part /dev/$name"
++        RUN+="/usr/bin/kpartx -u -p -part /dev/$name"
+ 
+ LABEL="kpartx_end"
+
+diff --git a/multipath-tools.spec.in b/multipath-tools.spec.in
+index 832006d..b3dad64 100644
+--- a/multipath-tools.spec.in
++++ b/multipath-tools.spec.in
+@@ -40,15 +40,15 @@ rm -rf $RPM_BUILD_ROOT
+ 
+ %files
+ %defattr(-,root,root,-)
+-%{prefix}/sbin/multipath
+-%{prefix}/sbin/kpartx
++%{prefix}/usr/bin/multipath
++%{prefix}/usr/bin/kpartx
+ %{prefix}/usr/share/man/man8/multipath.8.gz
+ %{prefix}/usr/share/man/man8/kpartx.8.gz
+ %{prefix}/usr/share/man/man8/multipathd.8.gz
+ %{prefix}/usr/share/man/man5/multipath.conf.5.gz
+-%{prefix}/sbin/multipathd
+-%{prefix}/etc/udev/rules.d/multipath.rules
+-%{prefix}/etc/udev/rules.d/kpartx.rules
++%{prefix}/usr/bin/multipathd
++%{prefix}/usr/lib/udev/rules.d/65-multipath.rules
++%{prefix}/usr/lib/udev/rules.d/66-kpartx.rules
+ %{prefix}/lib/udev/kpartx_id
+ %{prefix}/lib/multipath/*.so
+ 

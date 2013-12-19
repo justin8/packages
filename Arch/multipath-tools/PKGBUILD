@@ -1,0 +1,58 @@
+# Maintainer: Justin Dray <justin@dray.be>
+# Contributor:  Patrick McCarty <pnorcks at gmail dot com>
+# Contributor: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
+# Contributor: Thomas S Hatch <thatch45 ar gmail dot com>
+# Contributor: Michael P <ptchinster@archlinux.us>
+# Contributor: Matt Heagney <matt@heagney.com>
+
+pkgname=multipath-tools
+pkgver=0.5.0
+pkgrel=1
+pkgdesc='Multipath tools for Linux'
+arch=('i686' 'x86_64')
+url="http://christophe.varoqui.free.fr/"
+license=('GPL')
+depends=('libaio' 'device-mapper')
+backup=('etc/multipath.conf' 'etc/multipath.conf.annotated')
+install=multipath-tools.install
+provides=("kpartx=$pkgver")
+options=(!emptydirs)
+source=(http://christophe.varoqui.free.fr/multipath-tools/$pkgname-$pkgver.tar.bz2
+	service.patch
+	multipath.conf
+	multipath.conf.annotated
+        fix-build.patch
+	buffer-overflows.patch
+	blacklist-cciss-devices.patch)
+md5sums=('faf261d4cc717bf4c979557dc7bf5f52'
+         '853446605a5503695eaa7705a0fec4ca'
+         'ff23f64ce15cb98303305db3ced108bd'
+         '5fd22c2bed60b15f602a83d82083a440'
+         '0ea723d433d8194fccd4426367a9e71c'
+         '869942bdd31decc696f9cf4af24df65b'
+         'c81422ccf5fd5ca6208dfbdd66ff323c')
+
+build() {
+  cd  "${srcdir}/${pkgname}-${pkgver}"
+  patch -Np1 -i "${srcdir}/service.patch"
+  patch -Np1 -i "${srcdir}/fix-build.patch"
+  patch -Np1 -i "${srcdir}/buffer-overflows.patch"
+  patch -Np1 -i "${srcdir}/blacklist-cciss-devices.patch"
+
+  # Needs to be fixed upstream. Refer to
+  # https://bbs.archlinux.org/viewtopic.php?pid=793814#p793814
+  export LDFLAGS=${LDFLAGS/-Wl,--as-needed}
+  
+  make LIB='usr/lib'
+}
+
+package() {
+  make LIB='usr/lib' \
+       DESTDIR="$pkgdir" \
+       bindir='/usr/bin' \
+       libudevdir='/usr/lib/udev' install
+
+  install -Dm644 'multipath.conf' "${pkgdir}/etc/multipath.conf"
+  install -Dm644 'multipath.conf.annotated' "${pkgdir}/etc/multipath.conf.annotated"
+  install -Dm644 "${srcdir}/multipathd/mutlipathd.service" "${pkgdir}/usr/lib/systemd/system/multipathd.service"
+}

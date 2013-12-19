@@ -1,0 +1,24 @@
+diff --git a/multipathd/multipathd.service b/multipathd/multipathd.service
+index be3ba3f..339deec 100644
+--- a/multipathd/multipathd.service
++++ b/multipathd/multipathd.service
+@@ -1,6 +1,5 @@
+ [Unit]
+ Description=Device-Mapper Multipath Device Controller
+-Before=iscsi.service iscsid.service lvm2-activation-early.service
+ After=syslog.target
+ DefaultDependencies=no
+ Conflicts=shutdown.target
+@@ -9,9 +8,9 @@ Conflicts=shutdown.target
+ Type=notify
+ NotifyAccess=main
+ LimitCORE=infinity
+-ExecStartPre=/sbin/modprobe dm-multipath
+-ExecStart=/sbin/multipathd -d -s
+-ExecReload=/sbin/multipathd reconfigure
++ExecStartPre=/usr/bin/modprobe dm-multipath
++ExecStart=/usr/bin/multipathd -d -s
++ExecReload=/usr/bin/multipathd reconfigure
+ 
+ [Install]
+ WantedBy=sysinit.target
