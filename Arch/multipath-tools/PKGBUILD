@@ -13,6 +13,7 @@ arch=('i686' 'x86_64')
 url="http://christophe.varoqui.free.fr/"
 license=('GPL2')
 depends=('libaio' 'device-mapper')
+conflicts=('multipath-tools-git')
 backup=('etc/multipath.conf')
 install=multipath-tools.install
 options=(!emptydirs)
