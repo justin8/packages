@@ -12,22 +12,18 @@ pkgdesc='Multipath tools for Linux'
 arch=('i686' 'x86_64')
 url="http://christophe.varoqui.free.fr/"
 license=('GPL')
-depends=('libaio' 'device-mapper')
-backup=('etc/multipath.conf' 'etc/multipath.conf.annotated')
+depends=('libaio')
+backup=('etc/multipath.conf')
 install=multipath-tools.install
 provides=("kpartx=$pkgver")
 options=(!emptydirs)
 source=(http://christophe.varoqui.free.fr/multipath-tools/$pkgname-$pkgver.tar.bz2
 	service.patch
-	multipath.conf
-	multipath.conf.annotated
         fix-build.patch
 	buffer-overflows.patch
 	blacklist-cciss-devices.patch)
 md5sums=('faf261d4cc717bf4c979557dc7bf5f52'
          '853446605a5503695eaa7705a0fec4ca'
-         'ff23f64ce15cb98303305db3ced108bd'
-         '5fd22c2bed60b15f602a83d82083a440'
          '0ea723d433d8194fccd4426367a9e71c'
          '869942bdd31decc696f9cf4af24df65b'
          'c81422ccf5fd5ca6208dfbdd66ff323c')
@@ -47,12 +43,16 @@ build() {
 }
 
 package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
   make LIB='usr/lib' \
        DESTDIR="$pkgdir" \
        bindir='/usr/bin' \
        libudevdir='/usr/lib/udev' install
 
-  install -Dm644 'multipath.conf' "${pkgdir}/etc/multipath.conf"
-  install -Dm644 'multipath.conf.annotated' "${pkgdir}/etc/multipath.conf.annotated"
-  install -Dm644 "${srcdir}/multipathd/mutlipathd.service" "${pkgdir}/usr/lib/systemd/system/multipathd.service"
+  install -d "${pkgdir}/usr/share/multipath/examples"
+  install -Dm644 "multipath.conf.annotated" "${pkgdir}/usr/share/multipath/examples/multipath.conf.annotated"
+  install -Dm644 "multipath.conf.defaults" "${pkgdir}/usr/share/multipath/examples/multipath.conf.defaults"
+  install -Dm644 "multipath.conf.synthetic" "${pkgdir}/usr/share/multipath/examples/multipath.conf.synthetic"
+  install -Dm644 "multipathd/multipathd.service" "${pkgdir}/usr/lib/systemd/system/multipathd.service"
+  install -Dm644 "/multipath.conf.defaults" "${pkgdir}/etc/multipath.conf"
 }
