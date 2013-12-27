@@ -1,8 +1,8 @@
 # Maintainer: Justin Dray <justin@dray.be>
 
 pkgname=sickbeard-piratebay-git
-pkgver=484.r2589.gcd5f431
-pkgrel=2
+pkgver=489.r2375.gaa220e4
+pkgrel=1
 pkgdesc="A PVR application that downloads and manages your TV shows. Piratebay branch."
 arch=('any')
 url="https://github.com/mr-orange/Sick-Beard/tree/ThePirateBay"
@@ -24,7 +24,7 @@ sha256sums=('SKIP'
 
 pkgver() {
   cd $pkgname
-  git checkout ThePirateBay 2> /dev/null
+  git checkout ThePirateBay > /dev/null 2>&1
   git describe --long | sed -E 's/([^-]*-g)/r\1/;s/-/./g;s/build.//g'
 }
 
