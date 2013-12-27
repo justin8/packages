@@ -21,8 +21,6 @@ source=(http://christophe.varoqui.free.fr/multipath-tools/$pkgname-$pkgver.tar.b
 	buffer-overflows.patch
 	blacklist-cciss-devices.patch)
 md5sums=('faf261d4cc717bf4c979557dc7bf5f52'
-         '853446605a5503695eaa7705a0fec4ca'
-         '0ea723d433d8194fccd4426367a9e71c'
          '869942bdd31decc696f9cf4af24df65b'
          'c81422ccf5fd5ca6208dfbdd66ff323c')
 
