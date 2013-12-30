@@ -3,7 +3,7 @@
 
 pkgname=j4-dmenu-desktop
 pkgver=2.8
-pkgrel=2
+pkgrel=3
 pkgdesc="A much faster replacement for i3-dmenu-desktop. It's purpose is to find .desktop files and offer you a menu to start an application using dmenu."
 arch=('i686' 'x86_64')
 url="https://github.com/enkore/j4-dmenu-desktop"
