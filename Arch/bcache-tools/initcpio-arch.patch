@@ -1,0 +1,62 @@
+diff --git a/Makefile b/Makefile
+index 4f9f7c5..0103314 100644
+--- a/Makefile
++++ b/Makefile
+@@ -8,10 +8,10 @@ CFLAGS+=-O2 -Wall -g
+ all: make-bcache probe-bcache bcache-super-show
+ 
+ install: make-bcache probe-bcache bcache-super-show
+-	$(INSTALL) -m0755 make-bcache bcache-super-show	$(DESTDIR)${PREFIX}/sbin/
+-	$(INSTALL) -m0755 probe-bcache bcache-register		$(DESTDIR)$(UDEVLIBDIR)/
+-	$(INSTALL) -m0644 69-bcache.rules	$(DESTDIR)$(UDEVLIBDIR)/rules.d/
+-	-$(INSTALL) -T -m0755 initramfs/hook	$(DESTDIR)/usr/share/initramfs-tools/hooks/bcache
++	$(INSTALL) -m0755 make-bcache bcache-super-show	$(DESTDIR)${PREFIX}/bin/
++	$(INSTALL) -m0755 probe-bcache bcache-register		$(DESTDIR)${PREFIX}$(UDEVLIBDIR)/
++	$(INSTALL) -m0644 69-bcache.rules	$(DESTDIR)${PREFIX}$(UDEVLIBDIR)/rules.d/
++	-$(INSTALL) -T -m0755 initramfs/hook	$(DESTDIR)/usr/lib/initcpio/install/bcache_udev
+ 	if [ -d $(DESTDIR)$(DRACUTLIBDIR)/modules.d ]; \
+ 	then $(INSTALL) -D -m0755 dracut/module-setup.sh $(DESTDIR)$(DRACUTLIBDIR)/modules.d/90bcache/module-setup.sh; \
+ 	fi
+diff --git a/initramfs/hook b/initramfs/hook
+old mode 100755
+new mode 100644
+index e618e1a..4ba2342
+--- a/initramfs/hook
++++ b/initramfs/hook
+@@ -1,22 +1,15 @@
+-#!/bin/sh
+-
+-PREREQ="udev"
+-
+-prereqs()
+-{
+-	echo "$PREREQ"
++#!/bin/bash
++build() {
++    add_checked_modules -f 'bcache' 'drivers/md/*'
++    add_binary "/usr/lib/udev/bcache-register"
++    add_binary "/usr/lib/udev/probe-bcache"
++    add_file "/usr/lib/udev/rules.d/69-bcache.rules"
+ }
+-
+-case $1 in
+-prereqs)
+-	prereqs
+-	exit 0
+-	;;
+-esac
+-
+-. /usr/share/initramfs-tools/hook-functions
+-
+-cp -pt "${DESTDIR}/lib/udev/rules.d" /lib/udev/rules.d/69-bcache.rules
+-copy_exec /lib/udev/bcache-register
+-copy_exec /lib/udev/probe-bcache
+-manual_add_modules bcache
++help() {
++  cat <<HELPEOF
++This hook loads the necessary modules for a bcache ssd cached array and uses
++udev at runtime to create the devices. This hook will NOT work without the
++udev hook included on the image.
++HELPEOF
++}
++# vim: set ft=sh ts=4 sw=4 et:

@@ -1,0 +1,35 @@
+# Maintainer: Justin Dray <justin@dray.be>
+# Contributor: Mikeserv
+
+pkgname=bcache-tools
+pkgver=1.0.4
+pkgrel=1
+pkgdesc="Userspace tools for bcache until bcache merges with either dm or md"
+changelog=bcache-tools.changelog
+arch=('i686' 'x86_64')
+url="http://bcache.evilpiepirate.org/"
+license=('GPL')
+makedepends=('git')
+conflicts=()
+source=("https://github.com/g2p/${pkgname}/archive/v${pkgver}.zip"
+        'initcpio-arch.patch')
+md5sums=('324d2f5c8eac9d0dc8cdeb0b2585bbed'
+         '633965c7fc1a71cd408e9f365fb5f1d7')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -Np1 -i "${srcdir}/initcpio-arch.patch"
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  mkdir -p ${pkgdir}/usr/bin
+  mkdir -p ${pkgdir}/usr/lib/udev/rules.d
+  mkdir -p ${pkgdir}/usr/share/man/man8
+  mkdir -p ${pkgdir}/usr/lib/initcpio/{hooks,install}
+
+  make DESTDIR="${pkgdir}" install
+}
+
+# vim:set ts=2 sw=2 et:
