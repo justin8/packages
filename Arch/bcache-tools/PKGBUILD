@@ -2,19 +2,20 @@
 # Contributor: Mikeserv
 
 pkgname=bcache-tools
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="Userspace tools for bcache until bcache merges with either dm or md"
 changelog=bcache-tools.changelog
 arch=('i686' 'x86_64')
 url="http://bcache.evilpiepirate.org/"
 license=('GPL')
+depends=('util-linux')
 makedepends=('git')
-conflicts=()
+install="${pkgname}.install"
 source=("https://github.com/g2p/${pkgname}/archive/v${pkgver}.zip"
         'initcpio-arch.patch')
-md5sums=('324d2f5c8eac9d0dc8cdeb0b2585bbed'
-         '633965c7fc1a71cd408e9f365fb5f1d7')
+md5sums=('71a202a08514b9a67a530c5c05d3af3e'
+         '208d7024340b8db3cf21325df40b6267')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -27,7 +28,7 @@ package() {
   mkdir -p ${pkgdir}/usr/bin
   mkdir -p ${pkgdir}/usr/lib/udev/rules.d
   mkdir -p ${pkgdir}/usr/share/man/man8
-  mkdir -p ${pkgdir}/usr/lib/initcpio/{hooks,install}
+  mkdir -p ${pkgdir}/usr/lib/initcpio/install
 
   make DESTDIR="${pkgdir}" install
 }
