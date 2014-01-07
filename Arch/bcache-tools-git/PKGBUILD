@@ -4,8 +4,8 @@
 
 _gitname=bcache-tools
 pkgname=${_gitname}-git
-pkgver=0.r87.ba2c135
-pkgrel=2
+pkgver=1.0.5.r0.gba2c135
+pkgrel=1
 pkgdesc="Userspace tools for bcache until bcache merges with either dm or md"
 changelog=bcache-tools-git.changelog
 arch=('i686' 'x86_64')
@@ -30,7 +30,7 @@ md5sums=('SKIP'
 pkgver() {
   cd "${srcdir}/${_gitname}"
   [[ -n $_gitrev ]] && git reset --hard "$_gitrev"
-  printf "0.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  git describe --long --tags | sed -E 's/([^-]*-g)/r\1/;s/-/./g;s/^v//'
 }
 
 build() {
