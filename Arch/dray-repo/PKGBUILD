@@ -1,0 +1,17 @@
+# Maintainer: Justin Dray <justin@dray.be>
+
+pkgname=dray-repo
+pkgver=0.6
+pkgrel=1
+pkgdesc="A package to configure repo.dray.be and add certificate trust"
+arch='any'
+url=https://repo.dray.be
+license=custom
+depends=ca-certificates
+install="${pkgname}.install"
+source="${pkgname}.install"
+md5sums=('d9684dcf8c22ed5a7ae062f6a84367a2')
+
+package() {
+    echo > /dev/null
+}
