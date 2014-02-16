@@ -4,7 +4,7 @@
 pkgname=ftb-ultimate-server
 pkgver=1.1.2
 pkgrel=1
-pkgdesc="Feed the Beast server unit files, script, and jar"
+pkgdesc="Feed the Beast Ultimate server unit files, script, and jar"
 arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
