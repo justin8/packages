@@ -1,0 +1,39 @@
+# Maintainer: Justin Dray <justin@dray.be>
+
+pkgname=ftb-monster-server
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="Feed the Beast Monster server. Spiritual successor to FTB Unleashed"
+arch=('i686' 'x86_64')
+url="http://www.feed-the-beast.com/"
+license=('custom')
+depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
+backup=("etc/conf.d/$pkgname")
+options=(emptydirs)
+install=install
+source=(MonsterServer.zip::http://www.creeperrepo.net/direct/FTB2/18606e7928709218bd2a4386fb84ada9/modpacks%5EMonster%5E1_0_9%5EMonsterServer.zip
+        bin
+        service
+	config)
+noextract=('MonsterServer.zip')
+md5sums=('9c8add8f1e9a3a7af69a4d1de5d85b35'
+         '350a77a3731b39e0dc1f5c9e115e8940'
+         '21381b0f1d3bf356568a2b578deb646d'
+         '94316d4c1d5b69e84e71b3f589481e8d')
+PKGEXT='.pkg.tar.gz'
+
+build() {
+	cd "$srcdir"
+	unzip -qo "MonsterServer.zip" -d "$srcdir/$pkgname"
+}
+
+package() {
+	cd "$srcdir"
+	
+	install -d "$pkgdir/srv/$pkgname"
+	cp -r "$srcdir/$pkgname/"* "$pkgdir/srv/$pkgname/"
+	install -Dm744 "$srcdir/bin" "$pkgdir/usr/bin/$pkgname"
+	install -Dm644 "$srcdir/service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+	install -Dm644 "$srcdir/config" "$pkgdir/etc/conf.d/${pkgname/-server}"
+	rm -f "$pkgdir"/srv/$pkgname/ServerStart.{bat,sh}
+}
