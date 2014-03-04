@@ -1,5 +1,4 @@
 # Maintainer: Justin Dray <justin@dray.be>
-# Previous Maintainer: Isaac C. Aronson <isaac at pingas dot org>
 
 pkgname=ftb-ultimate-server
 pkgver=1.1.2
@@ -9,7 +8,7 @@ arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
-backup=("etc/conf.d/$pkgname")
+backup=("etc/conf.d/${pkgname/-server}")
 replaces='feedthebeast-server'
 options=(emptydirs)
 install=install

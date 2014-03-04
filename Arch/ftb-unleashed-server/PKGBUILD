@@ -8,8 +8,8 @@ arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
-backup=("etc/conf.d/$pkgname")
 options=(emptydirs)
+backup=("etc/conf.d/${pkgname/-server}")
 install=install
 source=(Unleashed_Server.zip::http://www.creeperrepo.net/direct/FTB2/18606e7928709218bd2a4386fb84ada9/modpacks%5EUnleashed%5E1_1_7%5EUnleashed-server.zip
         bin
