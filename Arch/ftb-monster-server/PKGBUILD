@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
-backup=("etc/conf.d/$pkgname")
+backup=("etc/conf.d/${pkgname/-server}")
 options=(emptydirs)
 install=install
 source=(MonsterServer.zip::http://www.creeperrepo.net/direct/FTB2/18606e7928709218bd2a4386fb84ada9/modpacks%5EMonster%5E1_0_9%5EMonsterServer.zip
@@ -17,9 +17,9 @@ source=(MonsterServer.zip::http://www.creeperrepo.net/direct/FTB2/18606e79287092
 	config)
 noextract=('MonsterServer.zip')
 md5sums=('9c8add8f1e9a3a7af69a4d1de5d85b35'
-         '350a77a3731b39e0dc1f5c9e115e8940'
+         '44060ddd515aa64f2acd1a2081100410'
          '21381b0f1d3bf356568a2b578deb646d'
-         '94316d4c1d5b69e84e71b3f589481e8d')
+         'bef2213c1448226d3840d1152b92a19a')
 PKGEXT='.pkg.tar.gz'
 
 build() {
