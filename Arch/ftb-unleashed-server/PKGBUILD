@@ -17,9 +17,9 @@ source=(Unleashed_Server.zip::http://www.creeperrepo.net/direct/FTB2/18606e79287
 	config)
 noextract=('Unleashed_Server.zip')
 md5sums=('dc1d1badcbae224b2d0cfb347369725f'
-         '0d8dcb7d35fa94f709f749176ac31898'
+         '9da97322791b396045830ca887ac42ea'
          '003b749899919d3da08901192bd9add8'
-         '13e1af3a0ee77d26122ec1bb0f98d928')
+         'a812c534cc2223c536640d86c5d5cc4d')
 PKGEXT='.pkg.tar.gz'
 
 build() {
