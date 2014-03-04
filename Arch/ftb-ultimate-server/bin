@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /etc/conf.d/ftb-ultimate-server || exit 1
+. /etc/conf.d/ftb-ultimate || exit 1
 
 cd $_SRVDIR
 case $1 in

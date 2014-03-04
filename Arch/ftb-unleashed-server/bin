@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /etc/conf.d/ftb-unleashed-server || exit 1
+. /etc/conf.d/ftb-unleashed || exit 1
 
 cd $_SRVDIR
 case $1 in
