@@ -1,8 +1,8 @@
 # Maintainer: Egon Geerardyn <egon [dot] geerardyn [at] gmail [dot] com>
 # Contributor: Bill Durr <billyburly [at] gmail [dot] com>
 pkgname=crashplan
-pkgver=3.5.3
-pkgrel=2
+pkgver=3.6.3
+pkgrel=1
 pkgdesc="an online/offsite backup solution"
 url="http://www.crashplan.com"
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ install=crashplan.install
 source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan_${pkgver}_Linux.tgz
         crashplan
         crashplan.service)
-sha256sums=('4ba6e7144b6184192e16fd1cd93ff342bd333e8e7080baaa9f8f46410cffa9df'
+sha256sums=('ddee41f515514156e4a2550a4b9304d39952b5a7c64ce33432e11ae38e5bb384'
             'a5cef27a089e82cf43882e153f4d07f80da0ee2b523a7237f892a38ecffccc4f'
             '6b8fad94ac8b8c064572748b9167f66fd728c4cf6185bfc22d864ae06ee79128')
 
