@@ -4,7 +4,7 @@ _licensefile=LICENSE
 
 # PKGBUILD options/directives
 pkgname=haskell-uniplate
-pkgver=1.6.11
+pkgver=1.6.12
 pkgrel=1
 pkgdesc="Help writing simple, concise and fast generic operations."
 url="http://community.haskell.org/~ndm/uniplate/"
@@ -15,7 +15,7 @@ depends=("ghc" "haskell-unordered-containers" "haskell-hashable"
          "haskell-syb")
 options=('strip')
 source=("http://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha256sums=('3229baeea06f2a507f51f828bb7c33258d9ba196aa6de2473ec103866162f782')
+sha256sums=('fcc60bc6b3f6e925f611646db90e6db9f05286a9363405f844df1dc15572a8b7')
 install="${pkgname}.install"
 
 # PKGBUILD functions
