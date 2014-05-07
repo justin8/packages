@@ -14,6 +14,11 @@ conflicts=('j4-dmenu-desktop-git')
 source=("https://github.com/enkore/j4-dmenu-desktop/archive/r${pkgver}.zip")
 md5sums=('c6f58c29f6c4032fe47614894550e6b2')
 
+prepare() {
+	# Patch for issue #20; backported as it was not included for the 2.11 cut
+	# Can probably be removed from v2.12 onwards
+	sed -i '/include <string>/s/$/\n#include <functional>/' "$srcdir/j4-dmenu-desktop-r2.11/src/Formatters.hh"
+}
 build() {
 	cd ${pkgname}-r${pkgver}
 	cmake -DCMAKE_INSTALL_PREFIX=/usr .
