@@ -19,7 +19,7 @@ source=("https://github.com/rembo10/headphones/archive/v${pkgver}.zip"
 	'headphones.service'
 	'headphones.conf')
 md5sums=('d481cc841e31e4c898d9fd237543f388'
-         '639107ff352c63810f773e55b4bf7e8c'
+         '847d90249eaa11a36ed5ba76f8ffaa97'
          '005b3a5615c87841988bebb9fdfe0bb8')
 
 package() {
