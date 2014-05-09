@@ -12,8 +12,6 @@ url="http://github.com/rembo10/headphones"
 license=('GPL3')
 depends=('python2')
 backup=('etc/conf.d/headphones')
-conflicts=('headphones-git')
-replaces=('headphones-git')
 install='headphones.install'
 source=("https://github.com/rembo10/headphones/archive/v${pkgver}.zip"
 	'headphones.service'
