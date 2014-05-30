@@ -15,7 +15,7 @@ install=crashplan.install
 source=(http://download.crashplan.com/installs/linux/install/CrashPlan/CrashPlan_${pkgver}_Linux.tgz
         crashplan
         crashplan.service)
-sha256sums=('ddee41f515514156e4a2550a4b9304d39952b5a7c64ce33432e11ae38e5bb384'
+sha256sums=('605580cfc6aecb3acdc10baa6afc448ac07d960dafdbaa2e35b92f61d877016c'
             'a5cef27a089e82cf43882e153f4d07f80da0ee2b523a7237f892a38ecffccc4f'
             '6b8fad94ac8b8c064572748b9167f66fd728c4cf6185bfc22d864ae06ee79128')
 
