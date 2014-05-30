@@ -69,6 +69,10 @@ package() {
   echo "" >> $srcdir/CrashPlan-install/scripts/run.conf
   echo "export LC_ALL=$LANG" >> $srcdir/CrashPlan-install/scripts/run.conf
 
+  # Fix for the GUI segfaulting
+  #  http://support.code42.com/CrashPlan/Latest/Troubleshooting/CrashPlan_Client_Closes_In_Some_Linux_Installations
+  sed -i '/^GUI_JAVA_OPTS=/s|"$|-Dorg.eclipse.swt.browser.DefaultType=mozilla"|' $srcdir/CrashPlan-install/scripts/run.conf
+
   install -D -m 644 $srcdir/CrashPlan-install/install.vars $pkgdir/opt/$pkgname/install.vars
   install -D -m 644 $srcdir/CrashPlan-install/EULA.txt $pkgdir/opt/$pkgname/EULA.txt
   install -D -m 644 $srcdir/CrashPlan-install/EULA.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
