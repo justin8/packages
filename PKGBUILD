@@ -31,7 +31,7 @@ build() {
 
   echo "" > install.vars
   echo "JAVACOMMON=`which java`" >> install.vars
-  echo "#APP_BASENAME=CrashPlan" >> install.vars
+  echo "APP_BASENAME=CrashPlan" >> install.vars
   echo "TARGETDIR=/opt/$pkgname" >> install.vars
   echo "BINSDIR=" >> install.vars
   echo "MANIFESTDIR=/opt/$pkgname/manifest" >> install.vars
