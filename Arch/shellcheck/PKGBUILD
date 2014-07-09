@@ -2,7 +2,7 @@
 # Contributor: Earnestly <zibeon@gmail.com>
 
 pkgname=shellcheck
-pkgver=0.3.3
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="A shell script static analysis tool: Stable Release"
 arch=(i686 x86_64)
@@ -18,7 +18,7 @@ makedepends=(
     'haskell-regex-compat')
 conflicts=(shellcheck-git)
 source=("https://github.com/koalaman/shellcheck/archive/v$pkgver.tar.gz")
-md5sums=('ed06fea3b4742399f8d6a2db361fc79b')
+md5sums=('0e365ffff4a74347d0df2cbdc50251e0')
 
 prepare() {
     cd "$pkgname-$pkgver"
@@ -27,6 +27,7 @@ prepare() {
 
 build() {
     cd "$pkgname-$pkgver"
+    export LANG=en_US.UTF-8
     runhaskell Setup -v build
 }
 
