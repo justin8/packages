@@ -29,10 +29,10 @@ build() {
 	# Fix for encoding troubles (CrashPlan ticket 178827)
 	# Make sure the daemon is running using a sane locale
 	echo "" >> "$srcdir/CrashPlan-install/scripts/run.conf"
-	echo "export LC_ALL=C" >> "$srcdir/CrashPlan-install/scripts/run.conf"
+	echo "LC_ALL=C" >> "$srcdir/CrashPlan-install/scripts/run.conf"
 
 	# Fix for GUI crashing with libsoup errors
-	sed -i '/GUI_JAVA_OPTS/s/"$/ -Dorg.eclipse.swt.browser.DefaultType=mozilla/' "$srcdir/CrashPlan-install/scripts/run.conf"
+	sed -i '/GUI_JAVA_OPTS/s/"$/ -Dorg.eclipse.swt.browser.DefaultType=mozilla"/' "$srcdir/CrashPlan-install/scripts/run.conf"
 }
 
 package() {
