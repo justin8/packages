@@ -1,6 +1,6 @@
 post_install() {
 	post_remove
-	sed -i 's#\[core\]#\[dray.be\]\nSigLevel = Optional TrustAll\nServer = https://repo.dray.be/\n\[core\]#' /etc/pacman.conf
+	sed -i 's#\[core\]#\[dray.be\]\nSigLevel = Optional TrustAll\nServer = https://repo.dray.be/\n\n\[core\]#' /etc/pacman.conf
 }
 
 post_upgrade() {
