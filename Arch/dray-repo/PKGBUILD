@@ -10,7 +10,7 @@ license=custom
 depends=ca-certificates
 install="${pkgname}.install"
 source="${pkgname}.install"
-md5sums=('8fb9ee3d46927753abc6cea7e68a0796')
+md5sums=('1f1e42c547af851844c1f89ca70eb58f')
 
 package() {
     echo > /dev/null

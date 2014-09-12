@@ -1,16 +1,13 @@
 post_install() {
-	sed -i '/dray.be/,+3d' /etc/pacman.conf
-	sed -i 's#\[core\]#\[dray.be\]\nSigLevel = Optional TrustAll\nServer = https://repo.dray.be/$arch/\n\n\[dray.be-any\]\nSigLevel = Optional TrustAll\nServer = https://repo.dray.be/any/\n\n\[core\]#' /etc/pacman.conf
+	post_remove
+	sed -i 's#\[core\]#\[dray.be\]\nSigLevel = Optional TrustAll\nServer = https://repo.dray.be/\n\n\[core\]#' /etc/pacman.conf
 }
 
 post_upgrade() {
-    post_remove
-    post_install
+	post_remove
+	post_install
 }
 
 post_remove() {
-	sed -i 's#dray.be/dray.be-ca.crt##g' /etc/ca-certificates.conf
-	sed -i '/^$/d' /etc/ca-certificates.conf
-	update-ca-certificates
 	sed -i '/dray.be/,+3d' /etc/pacman.conf
 }
