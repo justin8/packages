@@ -26,6 +26,7 @@ prepare() {
 
 build() {
 	cd "$pkgname-$pkgver"
+	export LANG=en_US.UTF-8
 	runhaskell Setup -v build
 }
 
