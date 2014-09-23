@@ -9,7 +9,9 @@ url="http://www.nzbdrone.com"
 license=('GPL3')
 depends=('mono' 'libmediainfo' 'sqlite')
 optdepends=('sabnzbd: an NZB downloader'
-            'nzbget: an NZB downloader')
+            'nzbget: an NZB downloader'
+	    'transmission: a torrent downloader'
+	    'deluge: a torrent downloader')
 install='nzbdrone.install'
 provides='nzbdrone'
 conflicts='nzbdrone'
