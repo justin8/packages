@@ -4,7 +4,7 @@
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 
 pkgname=skype4pidgin
-pkgver=653
+pkgver=665
 pkgrel=1
 epoch=1
 pkgdesc="A Skype plugin for libpurple clients (Pidgin, Empathy, Finch, etc)"
@@ -16,7 +16,7 @@ makedepends=('pkgconfig' 'subversion')
 optdepends=('pidgin' 'empathy' 'finch')
 conflicts=('skype4pidgin-svn' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
 replaces=('skype4finch' 'skype4empathy')
-source=("$pkgname::svn+http://skype4pidgin.googlecode.com/svn/trunk/"
+source=("$pkgname::svn+http://skype4pidgin.googlecode.com/svn/trunk/#revision=${pkgver}"
         'Makefile.patch'
 	'https://sync.dray.be/public/packages/skype_icons_empathy.tar.xz')
 md5sums=('SKIP'

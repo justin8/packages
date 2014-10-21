@@ -4,7 +4,7 @@
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 
 pkgname=skype4pidgin-svn
-pkgver=664
+pkgver=665
 pkgrel=1
 pkgdesc="A Skype plugin for libpurple clients (Pidgin, Empathy, Finch, etc)"
 arch=("i686" "x86_64")
