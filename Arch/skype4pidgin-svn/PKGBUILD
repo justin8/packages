@@ -5,7 +5,7 @@
 
 pkgname=skype4pidgin-svn
 pkgver=665
-pkgrel=1
+pkgrel=2
 pkgdesc="A Skype plugin for libpurple clients (Pidgin, Empathy, Finch, etc)"
 arch=("i686" "x86_64")
 url="http://skype4pidgin.googlecode.com/"
@@ -27,9 +27,15 @@ pkgver() {
 	svnversion
 }
 
-build() {
+prepare() {
 	cd "${pkgname}"
 	patch -Np0 -i "${srcdir}/Makefile.patch"
+	temp=$(sed -n "/\[Skype\]/,/^&/p" theme | sed 's/\[Skype\]/\[Skype (D-Bus)\]/')
+	echo "$temp" >> theme
+}
+
+build() {
+	cd "${pkgname}"
 	make all
 }
 
