@@ -5,7 +5,7 @@ pkgver="2.0.0.2175"
 pkgrel=2
 pkgdesc="PVR for newsgroup users. Formerly known as NZBDrone"
 arch=(any)
-url="http://www.nzbdrone.com"
+url="http://www.sonarr.tv"
 license=('GPL3')
 depends=('mono' 'libmediainfo' 'sqlite')
 optdepends=('sabnzbd: an NZB downloader'
@@ -24,7 +24,7 @@ noextract=()
 md5sums=('8b71fb94f0f43c16396853b170e55ef8'
          'a7490c3f8d6c3a314b59f87f71086f1f'
          '41d8663e989a8db1fc4c6b81187a4d48'
-         '07395d6fc1ac06e10f77d53fbded2bda')
+         '6413a3db424de8d85a320c9e60ecac14')
 
 package() {
     cd "$srcdir"
