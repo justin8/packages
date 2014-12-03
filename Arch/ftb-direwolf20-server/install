@@ -8,9 +8,7 @@ post_install() {
 post_upgrade() {
   getent group "$FTBUSER" &>/dev/null || groupadd -r "$FTBUSER" 1>/dev/null
   getent passwd "$FTBUSER" &>/dev/null || useradd -r -g "$FTBUSER" -d "$FTBHOME" -s "/bin/bash" "$FTBUSER" 1>/dev/null
-  touch "${FTBHOME}/server.log"
   chown -R ${FTBUSER}. "$FTBHOME" 1>/dev/null
-  ln -sf "${FTBHOME}/server.log" "/var/log/${FTBUSER}-server.log"
   # Removes old data from previous version
   cat << EOF
 ==> World data is stored under $FTBHOME
