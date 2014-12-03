@@ -1,0 +1,12 @@
+[Unit]
+Description=Feed the Beast Direwolf20 server daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ftb-direwolf20-server start
+Type=oneshot
+RemainAfterExit=yes
+ExecStop=/usr/bin/ftb-direwolf20-server stop
+
+[Install]
+WantedBy=multi-user.target
