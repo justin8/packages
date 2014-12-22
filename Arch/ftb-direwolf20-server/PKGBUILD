@@ -5,7 +5,7 @@ JARFILE="minecraft_server.${MCVER}.jar"
 LAUNCHWRAPPER="net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
 
 pkgname=ftb-direwolf20-server
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="Feed the Beast Direwolf20 server."
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
 backup=("etc/conf.d/${pkgname/-server}")
 options=(emptydirs)
 install=install
-	source=("Direwolf20Server-$pkgver.zip::http://www.creeperrepo.net/FTB2/modpacks%5Edirewolf20_17%5E1_0_2%5Edirewolf20_17-server.zip"
+	source=("Direwolf20Server-$pkgver.zip::http://www.creeperrepo.net/FTB2/modpacks%5Edirewolf20_17%5E1_0_3%5Edirewolf20_17-server.zip"
 	"https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar"
 	"https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
         'bin'
