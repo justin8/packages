@@ -3,28 +3,28 @@
 # Contributor: mirandir <mirandir@orange.fr>
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 
-pkgname=skype4pidgin-svn
-pkgver=665
-pkgrel=2
+pkgname=skype4pidgin-git
+pkgver=r715.6e74eac
+pkgrel=1
 pkgdesc="A Skype plugin for libpurple clients (Pidgin, Empathy, Finch, etc)"
 arch=("i686" "x86_64")
-url="http://skype4pidgin.googlecode.com/"
+url="https://github.com/EionRobb/skype4pidgin"
 license=('GPL3')
 depends=('libpurple' 'skype')
 makedepends=('pkgconfig' 'subversion')
-conflicts=('skype4pidgin' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
-replaces=('skype4pidgin' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
+conflicts=('skype4pidgin' 'skype4pidgin-svn' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
+replaces=('skype4pidgin' 'skype4pidgin-svn' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
 provides=('skype4pidgin')
-source=("$pkgname::svn+http://skype4pidgin.googlecode.com/svn/trunk/"
+source=("$pkgname::git+https://github.com/EionRobb/skype4pidgin"
         'Makefile.patch'
-	'https://sync.dray.be/public/packages/skype_icons_empathy.tar.xz')
+	'https://copy.com/D1X42Cf78kCl/public/packages/skype_icons_empathy.tar.xz')
 md5sums=('SKIP'
          '8848134ab5babbc46549ae627365ff20'
          '5728aa01ac674fca2c01348719fe8672')
 
 pkgver() {
 	cd "${pkgname}"
-	svnversion
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
