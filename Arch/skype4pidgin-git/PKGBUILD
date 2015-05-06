@@ -4,14 +4,14 @@
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 
 pkgname=skype4pidgin-git
-pkgver=r715.6e74eac
+pkgver=r728.158ddac
 pkgrel=1
 pkgdesc="A Skype plugin for libpurple clients (Pidgin, Empathy, Finch, etc)"
 arch=("i686" "x86_64")
 url="https://github.com/EionRobb/skype4pidgin"
 license=('GPL3')
 depends=('libpurple' 'skype')
-makedepends=('pkgconfig' 'subversion')
+makedepends=('pkgconfig' 'git')
 conflicts=('skype4pidgin' 'skype4pidgin-svn' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
 replaces=('skype4pidgin' 'skype4pidgin-svn' 'skype4pidgin-svn-dbus' 'skype4finch' 'skype4finch-svn' 'skype4empathy' 'skype4empathy-svn')
 provides=('skype4pidgin')
