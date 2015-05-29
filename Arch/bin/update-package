@@ -1,0 +1,52 @@
+#!/bin/bash
+
+if [[ $1 == '-h' ]]
+then
+	echo "Usage: $(basename $0) [commit message]"
+	exit 0
+fi
+ 
+if [[ ! -f PKGBUILD ]]; then
+    echo "PKGBUILD not found"
+    exit 1
+fi
+ 
+if [[ ! -f .gitignore ]]; then
+    cat > .gitignore <<EOF
+*
+!PKGBUILD
+!.SRCINFO
+!*.patch
+!*.desktop
+!*.install
+!*.service
+!*.sh
+!*.conf
+!.gitignore
+EOF
+ 
+fi
+ 
+# verify source and update pkgver
+if ! makepkg -co; then
+    echo -e "\e[31;1mcannot verify source\e[0m"
+    exit 1
+fi
+ 
+# generate srcinfo
+if ! mksrcinfo; then
+    echo -e "\e[31;1mcannot run mksrcinfo\e[0m"
+    exit 1
+fi
+ 
+# create commit
+git add -A
+source PKGBUILD
+
+commit_message="Update to: $pkgver-$pkgrel"
+if [[ -n $1 ]]
+then
+	commit_message="$commit_message - $1"
+fi
+
+git commit -m "$commit_message"
