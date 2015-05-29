@@ -12,15 +12,15 @@ arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
-backup=("etc/conf.d/${pkgname/-server}")
+backup=("etc/conf.d/${pkgname/-server}.conf")
 options=(emptydirs)
-install=install
-	source=("Direwolf20Server-$pkgver.zip::http://www.creeperrepo.net/FTB2/modpacks%5Edirewolf20_17%5E1_0_3%5Edirewolf20_17-server.zip"
-	"https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar"
-	"https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
-        'bin'
-        'service'
-	'config')
+install="${pkgname}.install"
+source=("Direwolf20Server-$pkgver.zip::http://www.creeperrepo.net/FTB2/modpacks%5Edirewolf20_17%5E1_0_3%5Edirewolf20_17-server.zip"
+        "https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar"
+        "https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
+        "${pkgname}.sh"
+        "${pkgname}.service"
+        "${pkgname}.conf")
 noextract=("Direwolf20Server-$pkgver.zip"
            "minecraft_server.1.7.10.jar"
 	   "launchwrapper-1.11.jar")
@@ -42,9 +42,9 @@ package() {
 	cd "$srcdir"
 	install -d "$pkgdir/srv/$pkgname"
 	cp -r "$srcdir/$pkgname/"* "$pkgdir/srv/$pkgname/"
-	install -Dm744 "$srcdir/bin" "$pkgdir/usr/bin/$pkgname"
-	install -Dm644 "$srcdir/service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
-	install -Dm644 "$srcdir/config" "$pkgdir/etc/conf.d/${pkgname/-server}"
+	install -Dm744 "$srcdir/${pkgname}.sh" "$pkgdir/usr/bin/$pkgname"
+	install -Dm644 "$srcdir/${pkgname}.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+	install -Dm644 "$srcdir/${pkgname}.conf" "$pkgdir/etc/conf.d/${pkgname/-server}.conf"
 	install -D "$srcdir/minecraft_server.1.7.10.jar" "$pkgdir/srv/$pkgname/minecraft_server.1.7.10.jar"
 	install -D "$srcdir/launchwrapper-1.11.jar" "$pkgdir/srv/$pkgname/libraries/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
 	rm -f "$pkgdir"/srv/$pkgname/{ServerStart,FTBInstall}.{bat,sh}

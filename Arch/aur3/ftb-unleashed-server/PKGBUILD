@@ -9,12 +9,12 @@ url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
 options=(emptydirs)
-backup=("etc/conf.d/${pkgname/-server}")
-install=install
+backup=("etc/conf.d/${pkgname/-server}.conf")
+install="${pkgname}.install"
 source=(Unleashed_Server.zip::http://www.creeperrepo.net/direct/FTB2/18606e7928709218bd2a4386fb84ada9/modpacks%5EUnleashed%5E1_1_7%5EUnleashed-server.zip
-        bin
-        service
-	config)
+        "${pkgname}.sh"
+        "${pkgname}.service"
+	"${pkgname}.conf")
 noextract=('Unleashed_Server.zip')
 md5sums=('dc1d1badcbae224b2d0cfb347369725f'
          '9da97322791b396045830ca887ac42ea'
@@ -32,8 +32,8 @@ package() {
 	
 	install -d "$pkgdir/srv/$pkgname"
 	cp -r "$srcdir/$pkgname/"* "$pkgdir/srv/$pkgname/"
-	install -Dm744 "$srcdir/bin" "$pkgdir/usr/bin/$pkgname"
-	install -Dm644 "$srcdir/service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
-	install -Dm644 "$srcdir/config" "$pkgdir/etc/conf.d/${pkgname/-server}"
+	install -Dm744 "$srcdir/${pkgname}.sh" "$pkgdir/usr/bin/$pkgname"
+	install -Dm644 "$srcdir/${pkgname}.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+	install -Dm644 "$srcdir/${pkgname}.conf" "$pkgdir/etc/conf.d/${pkgname/-server}.conf"
 	rm -f "$pkgdir"/srv/$pkgname/ServerStart.{bat,sh}
 }

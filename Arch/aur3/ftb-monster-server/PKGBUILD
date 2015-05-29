@@ -8,13 +8,13 @@ arch=('i686' 'x86_64')
 url="http://www.feed-the-beast.com/"
 license=('custom')
 depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
-backup=("etc/conf.d/${pkgname/-server}")
+backup=("etc/conf.d/${pkgname/-server}.conf")
 options=(emptydirs)
-install=install
+install="${pkgname}.install"
 source=("MonsterServer-$pkgver.zip::http://www.creeperrepo.net/FTB2/modpacks%5EMonster%5E1_1_1%5EMonsterServer.zip"
-        'bin'
-        'service'
-	'config')
+        "${pkgname}.sh"
+        "${pkgname}.service"
+        "${pkgname}.conf")
 noextract=("MonsterServer-$pkgver.zip")
 md5sums=('2213d027de597b2a6dba5687f56e972a'
          '6f85812683356e30649b19df3b58c994'
@@ -32,8 +32,8 @@ package() {
 	
 	install -d "$pkgdir/srv/$pkgname"
 	cp -r "$srcdir/$pkgname/"* "$pkgdir/srv/$pkgname/"
-	install -Dm744 "$srcdir/bin" "$pkgdir/usr/bin/$pkgname"
-	install -Dm644 "$srcdir/service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
-	install -Dm644 "$srcdir/config" "$pkgdir/etc/conf.d/${pkgname/-server}"
+	install -Dm744 "$srcdir/${pkgname}.sh" "$pkgdir/usr/bin/$pkgname"
+	install -Dm644 "$srcdir/${pkgname}.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+	install -Dm644 "$srcdir/${pkgname}.conf" "$pkgdir/etc/conf.d/${pkgname/-server}.conf"
 	rm -f "$pkgdir"/srv/$pkgname/ServerStart.{bat,sh}
 }
