@@ -11,6 +11,9 @@ depends=('python' 'python-pytz' 'python-six' 'python-flask' 'python-structlog'
          'python-yaml' 'python-tzlocal' 'python-cairocffi' 'python-pyparsing'
 	 'gunicorn')
 makedepents=('python-setuptools' 'python-mock')
+optdepends=('python-flask-caches: For caching'
+            'python-raven: For sentry support'
+	    'python-statsd: For statsd support')
 install='graphite-api.install'
 backup=('etc/graphite-api.yaml' 'etc/conf.d/graphite-api.conf')
 arch=('any')
