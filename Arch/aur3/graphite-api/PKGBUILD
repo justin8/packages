@@ -24,7 +24,7 @@ source=("$_gitname::git+https://github.com/Dieterbe/graphite-api"
 	"graphite-api.install")
 options=(!strip)
 md5sums=('SKIP'
-         '8ff30538ca94d6f95affbed36dfb5377'
+         '812a1b255084315b95ef9196a77a292b'
          '73adabf7ca9d942a63195876c2d7ba10'
          'f4c29b725ab6b2b8f137198631650a41'
          '5f510962f5183354f211167c7e0c811e')
