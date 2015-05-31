@@ -1,4 +1,4 @@
-# Maintainer: Andy Weidenbaum <archbaum@gmail.com>
+# Maintainer: Justin Dray <justin@dray.be>
 
 pkgname=python-structlog
 pkgver=15.1.0
