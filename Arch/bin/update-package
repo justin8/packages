@@ -35,7 +35,7 @@ fi
 fi
  
 # verify source and update pkgver
-if ! makepkg -co; then
+if ! dmakepkg -cors --noconfirm; then
     echo -e "\e[31;1mcannot verify source\e[0m"
     exit 1
 fi
