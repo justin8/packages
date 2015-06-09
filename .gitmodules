@@ -64,3 +64,6 @@
 [submodule "Arch/aur4/graphite-api-git"]
 	path = Arch/aur4/graphite-api-git
 	url = aur@aur-dev.archlinux.org:/graphite-api-git.git
+[submodule "Arch/aur4/python-structlog"]
+	path = Arch/aur4/python-structlog
+	url = aur@aur-dev.archlinux.org:/python-structlog.git
