@@ -61,3 +61,6 @@
 [submodule "Arch/aur4/sonarr-develop"]
 	path = Arch/aur4/sonarr-develop
 	url = aur@aur-dev.archlinux.org:/sonarr-develop.git
+[submodule "Arch/aur4/graphite-api-git"]
+	path = Arch/aur4/graphite-api-git
+	url = aur@aur-dev.archlinux.org:/graphite-api-git.git
