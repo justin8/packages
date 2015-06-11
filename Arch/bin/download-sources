@@ -1,0 +1,67 @@
+#!/bin/bash
+AUR="aur@aur4.archlinux.org"
+
+# check if messages are to be printed using color
+unset ALL_OFF BOLD BLUE GREEN RED YELLOW
+if [[ -t 2 ]]; then
+	# prefer terminal safe colored and bold text when tput is supported
+	if tput setaf 0 &>/dev/null; then
+		ALL_OFF="$(tput sgr0)"
+		BOLD="$(tput bold)"
+		BLUE="${BOLD}$(tput setaf 4)"
+		GREEN="${BOLD}$(tput setaf 2)"
+		RED="${BOLD}$(tput setaf 1)"
+		YELLOW="${BOLD}$(tput setaf 3)"
+	else
+		ALL_OFF="\e[1;0m"
+		BOLD="\e[1;1m"
+		BLUE="${BOLD}\e[1;34m"
+		GREEN="${BOLD}\e[1;32m"
+		RED="${BOLD}\e[1;31m"
+		YELLOW="${BOLD}\e[1;33m"
+	fi
+fi
+readonly ALL_OFF BOLD BLUE GREEN RED YELLOW
+
+[[ $1 == clean ]] && clean=true || clean=false
+
+repo_exists() {
+	[[ -d ${1}/.git ]]
+	return $?
+}
+
+clean_repo() {
+	git -C $1 reset --hard 2>&1 | sed 's/^/     /'
+	git -C $1 checkout master 2>&1 | sed 's/^/     /'
+	git -C $1 fetch --all 2>&1 | sed 's/^/     /'
+	git -C $1 reset --hard origin/master 2>&1 | sed 's/^/     /'
+	git -C $1 clean -fd 2>&1 | sed 's/^/     /'
+}
+
+pull_repo() {
+	git -C $1 pull 2>&1 | sed 's/^/     /'
+}
+
+clone_repo() {
+	git clone ${AUR}:/${1}.git 2>&1 | sed 's/^/     /'
+}
+
+echo "${BOLD}Retrieving repo list...${ALL_OFF}"
+packages=$(ssh $AUR list-repos 2>/dev/null | grep -v '^*')
+echo "${BOLD}Updating Repos...${ALL_OFF}"
+for i in $packages
+do
+	echo "${BOLD}  Processing ${i}${ALL_OFF}"
+	if [[ -d ${i}/.git ]]
+	then
+		if [[ $clean == true ]]
+		then
+			clean_repo $i
+		else
+			pull_repo $i
+		fi
+	else
+		clone_repo $i
+	fi
+	echo
+done
