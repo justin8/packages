@@ -5,6 +5,18 @@ then
 	echo "Usage: $(basename $0) [commit message]"
 	exit 0
 fi
+
+if ! which dmakepkg > /dev/null
+then
+	echo "dmakepkg not found!"
+	exit 1
+fi
+
+if ! pacman -Q pkgbuild-introspection > /dev/null
+then
+	echo "pkgbuild-introspection no found. Install with pacman"
+	exit 1
+fi
  
 if [[ ! -f PKGBUILD ]]; then
     echo "PKGBUILD not found"
