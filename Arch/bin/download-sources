@@ -1,5 +1,5 @@
 #!/bin/bash
-AUR="aur@aur4.archlinux.org"
+AUR="aur@aur.archlinux.org"
 
 # check if messages are to be printed using color
 unset ALL_OFF BOLD BLUE GREEN RED YELLOW
