@@ -17,47 +17,47 @@ then
 	echo "pkgbuild-introspection no found. Install with pacman"
 	exit 1
 fi
- 
-if [[ ! -f PKGBUILD ]]; then
-    echo "PKGBUILD not found"
-    exit 1
-fi
- 
-if [[ ! -f .gitignore ]]; then
-    cat > .gitignore <<EOF
-*
-!PKGBUILD
-!.SRCINFO
-!*.patch
-!*.desktop
-!*.install
-!*.service
-!*.sh
-!*.conf
-!.gitignore
-EOF
 
-if pwd | grep -q -- '-git$'
-then
-	name="$(basename "$(pwd)")"
-	name="${name%-git}"
-	echo "$name" >> .gitignore
+if [[ ! -f PKGBUILD ]]; then
+	echo "PKGBUILD not found"
+	exit 1
 fi
- 
+
+if [[ ! -f .gitignore ]]; then
+	cat > .gitignore <<-EOF
+		*
+		!PKGBUILD
+		!.SRCINFO
+		!*.patch
+		!*.desktop
+		!*.install
+		!*.service
+		!*.sh
+		!*.conf
+		!.gitignore
+	EOF
+
+	if pwd | grep -q -- '-git$'
+	then
+		name="$(basename "$(pwd)")"
+		name="${name%-git}"
+		echo "$name" >> .gitignore
+	fi
+
 fi
- 
+
 # verify source and update pkgver
 if ! dmakepkg -cors --noconfirm; then
-    echo -e "\e[31;1mcannot verify source\e[0m"
-    exit 1
+	echo -e "\e[31;1mcannot verify source\e[0m"
+	exit 1
 fi
- 
+
 # generate srcinfo
 if ! mksrcinfo; then
-    echo -e "\e[31;1mcannot run mksrcinfo\e[0m"
-    exit 1
+	echo -e "\e[31;1mcannot run mksrcinfo\e[0m"
+	exit 1
 fi
- 
+
 # create commit
 git add -A
 source PKGBUILD
