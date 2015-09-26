@@ -1,0 +1,50 @@
+# Maintainer: Justin Dray <justin@dray.be>
+
+pkgname=ftb-infinity-server
+pkgver=1.10.1
+pkgrel=1
+pkgdesc="Feed the Beast Infinity server. Spiritual successor to FTB Unleashed"
+arch=('i686' 'x86_64')
+url="http://www.feed-the-beast.com/"
+license=('custom')
+depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
+backup=("etc/conf.d/${pkgname/-server}.conf")
+options=(emptydirs)
+install="${pkgname}.install"
+http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/1_11_1/FTBInfinityServer.zip
+source=("InfinityServer-$pkgver.zip::http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/${pkgver//./_}/FTBInfinityServer.zip"
+	"https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar"
+	"https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
+        "${pkgname}.sh"
+        "${pkgname}.service"
+        "${pkgname}.conf")
+noextract=("InfinityServer-$pkgver.zip")
+md5sums=('76d58f029a57b3187312d42b6d420da8'
+         '3e8912b293b52bd54f879919bd6e4e44'
+         '189acaecbe31eeb4366bca7ba17d7496'
+         'e58abcb59673ce7e6f8b469c589c5ed8'
+         'dc1f609fab12a92461d6f73dc93be114'
+         '191c5d95dbf745f9713624885ce3a368')
+PKGEXT='.pkg.tar.gz'
+
+build() {
+	cd "$srcdir"
+	unzip -qo "InfinityServer-$pkgver.zip" -d "$srcdir/$pkgname"
+}
+
+package() {
+	cd "$srcdir"
+	
+	install -d "$pkgdir/srv/$pkgname"
+	cp -r "$srcdir/$pkgname/"* "$pkgdir/srv/$pkgname/"
+
+	# These two are from install.sh
+	install -Dm644 "$srcdir/minecraft_server.1.7.10.jar" "$pkgdir/srv/$pkgname/minecraft_server.1.7.10.jar"
+	install -Dm644 "$srcdir/launchwrapper-1.11.jar" "$pkgdir/srv/$pkgname/libraries/launchewrapper-1.11.jar"
+
+	install -Dm744 "$srcdir/${pkgname}.sh" "$pkgdir/usr/bin/$pkgname"
+	install -Dm644 "$srcdir/${pkgname}.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+	install -Dm644 "$srcdir/${pkgname}.conf" "$pkgdir/etc/conf.d/${pkgname/-server}.conf"
+	echo "eula=true" > "$pkgdir/srv/$pkgname/eula.txt"
+	rm -f "$pkgdir"/srv/$pkgname/{ServerStart.{bat,sh},FTBInstall.{sh,bat}}
+}

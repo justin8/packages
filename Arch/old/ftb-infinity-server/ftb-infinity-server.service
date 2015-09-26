@@ -1,0 +1,12 @@
+[Unit]
+Description=Feed the Beast Infinity server daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ftb-infinity-server start
+Type=oneshot
+RemainAfterExit=yes
+ExecStop=/usr/bin/ftb-infinity-server stop
+
+[Install]
+WantedBy=multi-user.target
