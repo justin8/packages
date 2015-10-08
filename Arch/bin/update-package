@@ -47,6 +47,8 @@ if [[ ! -f .gitignore ]]; then
 fi
 
 # verify source and update pkgver
+# TODO: Make this update the pkgbuild in the folder. Might need some thought around this. Need dmakepkg to support this mode as well.
+# TODO: Pass through of -x for using system pacman.conf?
 if ! dmakepkg -cors --noconfirm; then
 	echo -e "\e[31;1mcannot verify source\e[0m"
 	exit 1
