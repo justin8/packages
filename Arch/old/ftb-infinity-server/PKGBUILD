@@ -1,7 +1,7 @@
 # Maintainer: Justin Dray <justin@dray.be>
 
 pkgname=ftb-infinity-server
-pkgver=1.10.1
+pkgver=1.11.2
 pkgrel=1
 pkgdesc="Feed the Beast Infinity server. Spiritual successor to FTB Unleashed"
 arch=('i686' 'x86_64')
@@ -11,7 +11,6 @@ depends=('expect' 'java-runtime-headless' 'screen' 'unzip')
 backup=("etc/conf.d/${pkgname/-server}.conf")
 options=(emptydirs)
 install="${pkgname}.install"
-http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/1_11_1/FTBInfinityServer.zip
 source=("InfinityServer-$pkgver.zip::http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/${pkgver//./_}/FTBInfinityServer.zip"
 	"https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar"
 	"https://libraries.minecraft.net/net/minecraft/launchwrapper/1.11/launchwrapper-1.11.jar"
