@@ -12,12 +12,6 @@ then
 	exit 1
 fi
 
-if ! pacman -Q pkgbuild-introspection > /dev/null
-then
-	echo "pkgbuild-introspection no found. Install with pacman"
-	exit 1
-fi
-
 if [[ ! -f PKGBUILD ]]; then
 	echo "PKGBUILD not found"
 	exit 1
@@ -55,7 +49,7 @@ if ! dmakepkg -cors --noconfirm; then
 fi
 
 # generate srcinfo
-if ! mksrcinfo; then
+if ! makepkg --printsrcinfo > .SRCINFO; then
 	echo -e "\e[31;1mcannot run mksrcinfo\e[0m"
 	exit 1
 fi
