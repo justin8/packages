@@ -28,6 +28,7 @@ if [[ ! -f .gitignore ]]; then
 		!*.service
 		!*.sh
 		!*.conf
+		!*.sysusers
 		!.gitignore
 	EOF
 
